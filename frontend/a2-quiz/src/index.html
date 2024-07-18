@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="img/x-icon" href="img/favicon.webp">
+</head>
+
+<body>
+
+    <div class="info_box invisible box">
+        <h2 class="welcome">Welcome To Quiz Game</h2>
+        <div class="info-list">
+            <p class="info">1. You will have only 10 seconds per each question.</p>
+            <p class="info">2. Once your select answer , it's can't be undone.</p>
+            <p class="info">3. You can't select your option time goes off.</p>
+            <p class="info">4. You'll get points on the basic of your correct answer.</p>
+        </div>
+        <div class="div-btn">
+            <p class="name">Enter your name to Start the game</p>
+            <input type="text" class="name-input" placeholder="Enter name..." autofocus>
+            <button class="start-btn">Start Game</button>
+        </div>
+    </div>
+
+    <div class="game-container invisible box">
+        <div class="quiz-div"></div>
+
+        <button class="submit-btn">Submit</button>
+        <div class="time-container"></div>
+        <h2 class="user-name"></h2>
+    </div>
+
+    <div class="result-container invisible box">
+        <div class="result"></div>
+        <div class="button-container">
+            <button class="play-again">Play Again</button>
+            <button class="reset-btn">Reset</button>
+        </div>
+        <div class="record invisible"></div>
+    </div>
+
+    <script type="module" src="script/main.js"></script>
+</body>
+
+</html>
