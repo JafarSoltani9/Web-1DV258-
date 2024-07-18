@@ -1,0 +1,265 @@
+<!-- views/snippets.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Snippets</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <a href="/">
+        <img src="/img/logo.png" alt="Logo">
+      </a>
+    </div>
+
+    <div class="nav-links">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/snippets">Browse</a></li>
+        <% if(session.username) { %>
+          <li><a href="">Logged in as <%= session.username %></a></li>
+          <% } else { %>
+            <li><a href="/user/login">Login</a></li>
+            <% } %>
+              <% if(session.username) { %>
+                <li><a href="/user/logout">Logout</a></li>
+                <% } else { %>
+                  <li><a href="/user/register">Register</a></li>
+                  <% } %>
+      </ul>
+    </div>
+  </header>
+
+  <div class="snippet-container">
+    <h1>Snippets</h1>
+
+    <% if (success && success !=undefined) { %>
+      <div class="success-message">
+        <%= success %>
+      </div>
+        <br><br>
+      <% } %>
+
+        <% if (fail && fail !=undefined) { %>
+          <div class="fail-message">
+            <%= fail %>
+          </div>
+          <br><br>
+          <% } %>
+
+            <% if(session.username) { %>
+              <a class="btn" href="/snippets/create">Create New Snippet</a>
+              <% } %>
+
+                <div class="row">
+                  <% snippets.forEach((snippet, index)=> { %>
+                    <% if(snippet.is_private===false) { %>
+                      <div class="card">
+                        <div class="top">
+                          <div class="created-by">
+                            <span>
+                              <%= index+1 %>_<%= snippet.title %>
+                            </span>
+                          </div>
+                          <% if(session.username) { %>
+                            <div class="rate">
+                              <span>Rated: <%= snippet.rating %> stars</span>
+                              <span>Snippet is <%= snippet.is_private ? 'Private' : 'Public' %></span>
+                            </div>
+                            <% } else { %>
+                              <div class="rating-actions">
+                                <div class="info" id="totalRate<%= snippet._id %>">Rating: <%= snippet.rating %> stars
+                                </div>
+                                <div id="submitRate<%= snippet._id %>">
+                                  <form action="">
+                                    <ul class="star-rating">
+                                      <li><i class="fas fa-star" onclick="submitForm(1, '<%= snippet._id %>')"
+                                          id="star1"></i></li>
+                                      <li><i class="fas fa-star" onclick="submitForm(2, '<%= snippet._id %>')"
+                                          id="star2"></i></li>
+                                      <li><i class="fas fa-star" onclick="submitForm(3, '<%= snippet._id %>')"
+                                          id="star3"></i></li>
+                                      <li><i class="fas fa-star" onclick="submitForm(4, '<%= snippet._id %>')"
+                                          id="star4"></i></li>
+                                      <li><i class="fas fa-star" onclick="submitForm(5, '<%= snippet._id %>')"
+                                          id="star5"></i></li>
+                                    </ul>
+                                  </form>
+                                </div>
+                              </div>
+                              <% } %>
+
+                                <% if(session.username && session.username===snippet.created_by) { %>
+                                  <div class="actions">
+                                    <a class="edit" href="/snippets/edit/<%= snippet._id %>">Edit</a>
+                                    <div class="delete">
+                                      <form action="/snippets" method="post"
+                                        enctype="application/x-www-form-urlencoded">
+                                        <input type="hidden" name="_id" id="_id" value="<%= snippet._id %>">
+                                        <button onclick="return confirm('Are you sure to delete?')"
+                                          type="submit">Delete</button>
+                                      </form>
+                                    </div>
+                                  </div>
+                                  <% } %>
+                        </div>
+                        <div class="infos">
+                          <div class="col">
+                            <span>Creator:</span>
+                            <span>
+                              <%= (session.username && session.username)===snippet.created_by ? 'Me' :
+                                snippet.created_by %>
+                            </span>
+                          </div>
+                          <div class="col">
+                            <span>Created at:</span>
+                            <span>
+                              <%= snippet.createdAt.toLocaleString() %>
+                            </span>
+                          </div>
+                          <div class="col">
+                            <span>Last Updated at:</span>
+                            <span>
+                              <%= snippet.updatedAt.toLocaleString() %>
+                            </span>
+                          </div>
+                          <div class="col">
+                            <span>Language:</span>
+                            <span>
+                              <%= snippet.language %>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="description">
+                          <span>Description:</span>
+                          <span>
+                            <%= snippet.description %>
+                          </span>
+                        </div>
+                        <div class="snippet">
+                          <textarea readonly><%= snippet.snippet %></textarea>
+                        </div>
+                      </div>
+                      <% } else if(snippet.is_private===true && session.username===snippet.created_by) { %>
+                        <div class="card">
+                          <div class="top">
+                            <div class="created-by">
+                              <span>
+                                <%= index+1 %>_<%= snippet.title %>
+                              </span>
+                            </div>
+                            <% if(session.username) { %>
+                              <div class="rate">
+                                <div class="info" id="totalRate<%= snippet._id %>">Rating: <%= snippet.rating %> stars
+                                </div>
+                                <span>Snippet is <%= snippet.is_private ? 'Private' : 'Public' %></span>
+                              </div>
+                              <% } else { %>
+                                <div id="submitRate<%= snippet._id %>">
+                                  <form action="">
+                                    <ul class="star-rating">
+                                      <li><i class="fas fa-star" onclick="submitForm(1, '<%= snippet._id %>')"
+                                          id="star1"></i></li>
+                                      <li><i class="fas fa-star" onclick="submitForm(2, '<%= snippet._id %>')"
+                                          id="star2"></i></li>
+                                      <li><i class="fas fa-star" onclick="submitForm(3, '<%= snippet._id %>')"
+                                          id="star3"></i></li>
+                                      <li><i class="fas fa-star" onclick="submitForm(4, '<%= snippet._id %>')"
+                                          id="star4"></i></li>
+                                      <li><i class="fas fa-star" onclick="submitForm(5, '<%= snippet._id %>')"
+                                          id="star5"></i></li>
+                                    </ul>
+                                  </form>
+                                </div>
+                                <% } %>
+                                  <% if(session.username && session.username===snippet.created_by) { %>
+                                    <div class="actions">
+                                      <a class="edit" href="/snippets/edit/<%= snippet._id %>">Edit</a>
+                                      <div class="delete">
+                                        <form action="/snippets" method="post"
+                                          enctype="application/x-www-form-urlencoded">
+                                          <input type="hidden" name="_id" id="_id" value="<%= snippet._id %>">
+                                          <button onclick="return confirm('Are you sure to delete?')"
+                                            type="submit">Delete</button>
+                                        </form>
+                                      </div>
+                                    </div>
+                                    <% } %>
+                          </div>
+                          <div class="infos">
+                            <div class="col">
+                              <span>Creator:</span>
+                              <span>
+                                <%= (session.username && session.username)===snippet.created_by ? 'Me' :
+                                  snippet.created_by %>
+                              </span>
+                            </div>
+                            <div class="col">
+                              <span>Created at:</span>
+                              <span>
+                                <%= snippet.createdAt.toLocaleString() %>
+                              </span>
+                            </div>
+                            <div class="col">
+                              <span>Last Updated at:</span>
+                              <span>
+                                <%= snippet.updatedAt.toLocaleString() %>
+                              </span>
+                            </div>
+                            <div class="col">
+                              <span>Language:</span>
+                              <span>
+                                <%= snippet.language %>
+                              </span>
+                            </div>
+                          </div>
+                          <div class="description">
+                            <span>Description:</span>
+                            <span>
+                              <%= snippet.description %>
+                            </span>
+                          </div>
+                          <div class="snippet">
+                            <textarea readonly><%= snippet.snippet %></textarea>
+                          </div>
+                        </div>
+                        <% } %>
+                          <% }) %>
+                </div>
+      </div>
+
+  <script>
+    function submitForm(rate, id) {
+
+      var formData = {
+        _id: id,
+        rate: rate
+      }
+
+      $.ajax({
+        type: 'POST',
+        url: '/snippets/rate', // Update with your server endpoint
+        data: formData,
+        success: function (response) {
+          $(`#totalRate${id}`).replaceWith(`<div class="info" id="totalRate">Rating: ${response.totalRate} stars</div>`);
+          $(`#submitRate${id}`).replaceWith(`<div class="info" id="rateCount">Total Rate: ${response.totalRateCount}</div>`);
+
+        },
+        error: function (error) {
+          console.log(error)
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

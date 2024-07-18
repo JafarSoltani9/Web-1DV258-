@@ -1,0 +1,342 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
+}
+
+body {
+    background-color: #5181a0;
+    padding-bottom: 3rem;
+}
+
+header {
+    height: 70px;
+    padding: 10px 20px;
+    display: flex;
+    gap: 8rem;
+    margin: 6px;
+    background-color: #434343;
+    border-radius: 6px;
+    
+}
+
+header .logo img {
+    height: 100%;
+    width: auto;
+}
+
+header .nav-links {
+    width: 980px;
+    margin-top: auto;
+    margin-bottom: auto;
+    background-color: #555555;
+    height: 100%;
+    border-radius: 6px;
+    
+}
+
+header .nav-links ul {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+header .nav-links ul li a {
+    padding: 6px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+}
+
+header .nav-links ul li a:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+.container {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3rem;
+}
+
+.container h1 {
+    text-align: center;
+    color: #fff;
+    font-size: 3.5rem;
+}
+
+.container p {
+    margin-top: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+.home-snippet{
+    font-size: 1.5rem;
+}
+.snippet-container {
+    padding: 1rem 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.snippet-container h1 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 1.5rem;
+}
+
+.snippet-container .btn {
+    background-color: #0075be;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 6px;
+}
+
+.snippet-container .btn:hover {
+    background-color: #03598f;
+}
+
+.snippet-container .row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 4rem;
+    row-gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.snippet-container .row .card {
+    grid-column: span 6;
+    background-color: #434343;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    padding: 20px 10px;
+}
+
+.snippet-container .row .card .top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.snippet-container .row .card .top .created-by {
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+}
+
+.snippet-container .row .card .top .rate {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.snippet-container .row .card .top .actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.snippet-container .row .card .top .actions a {
+    color: #fff;
+    padding: 6px 8px;
+    border-radius: 4px;
+}
+
+.snippet-container .row .card .top .actions .edit {
+    color: #fff;
+    background-color: #007dd5;
+    padding: 6px 8px;
+    border-radius: 4px;
+}
+
+.auth-container .input-submit button {
+    padding: 12px 16px;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+    background-color: #007dd5;
+    color: #fff;
+    transition: 0.5s;
+}
+
+.auth-container .input-submit button:hover {
+    background-color: #056ab3;
+}
+
+.snippet-container .row .card .top .delete button {
+    background-color: #d00906;
+    color: #fff;
+    padding: 8px 8px;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+}
+
+.snippet-container .row .card .top .actions .edit:hover {
+    background-color: #056ab3;
+}
+
+.snippet-container .row .card .top .delete button:hover {
+    background-color: #b60906;
+}
+
+.snippet-container .row .card .infos {
+    display: flex;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.snippet-container .row .card .col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.snippet-container .row .card .description {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1rem;
+}
+
+.auth-container .input-form textarea {
+    padding: 12px 16px;
+    color: black;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+}
+
+
+.snippet-container .row .card .snippet textarea {
+    background-color: rgb(126, 133, 206);
+    padding: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    outline: none;
+    border: none;
+    width: 100%;
+    height: 200px;
+    resize: none;
+    font-size: 1.5rem;
+}
+
+.snippet-container .row .card .rating-actions .info {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 6px;
+}
+
+.snippet-container .row .card .rating-actions ul {
+    display: flex;
+}
+
+.auth-container {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 6px;
+    margin-top: 3rem;
+    background-color: #555555;
+    padding: 40px 20px;
+}
+
+.auth-container h1 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 0.75rem;
+}
+
+.auth-container .input-form {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 1.25rem;
+}
+
+.auth-container .input-form label {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.auth-container .input-form label span {
+    color: #f10f0b;
+}
+
+.auth-container .input-form input {
+    padding: 12px 16px;
+    color: black;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+}
+
+
+.auth-container .input-submit {
+    margin-top: 2rem;
+}
+
+
+.auth-container .input-check {
+    display: flex;
+    align-items: center;
+    margin-top: 1.25rem;
+    gap: 6px;
+}
+
+.auth-container .input-check label {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.auth-container .input-check input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+}
+
+.success-message {
+    background-color: #4CAF50;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 16px 24px;
+    font-size: 1rem;
+}
+
+.fail-message {
+    background-color: #f44336;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 16px 24px;
+    font-size: 1rem;
+}
+
+.input-error {
+    color: #f44336;
+    margin-top: 4px;
+    font-weight: bold;
+}
+
+.star-rating li i {
+    font-size: 14px;
+    color: #e0e0e0;
+    padding: 2px;
+}
+
+.star-rating li i:hover {
+    cursor: pointer;
+    color: gold;
+}

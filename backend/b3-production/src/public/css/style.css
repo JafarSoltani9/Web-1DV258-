@@ -1,0 +1,118 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: black;
+    align-items: center;
+    justify-content: center;
+}
+#header {
+    background-color: aliceblue;
+}
+
+
+
+#nav-div{
+    text-align: center;
+    height: 100px;
+}
+#nav-div ul {
+    font-size: 35px;
+
+}
+
+#nav-div li {
+    display: inline-block;
+    margin: 23px;
+}
+#nav-div li a {
+    text-decoration: none;
+    padding: 30px;
+}
+#nav-div li :hover {
+    cursor: pointer;
+    color: red;
+}
+
+.main {
+    background-color: rgb(235, 174, 174);
+    padding: 25px;
+    margin: 20px;
+    text-align: center;
+}
+#messages {
+    color: #ffffff;
+    font-size: 40px;
+    text-align: center;
+    padding: 30px;
+}
+.issue {
+    border: 1px solid #ccc;
+    margin: 20px auto; /* Top & bottom margin 20px, left & right margin auto for centering */
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff; 
+    text-align: center;
+    width: 40%; /* Or adjust width as needed */
+    display: block; /* Ensures the element is treated as a block-level element, might be redundant if it's a div */
+}
+
+
+.issue h2 {
+    margin-top: 0;
+    color: #fff;
+    font-weight: bold;
+    margin: 10px;
+    font-size: 40px;
+}
+.issue p, span {
+    font-size: 25px;
+    margin: 10px;
+}
+
+.created-time {
+    color: red;
+}
+.status-indicator {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 2px;
+}
+
+.open {
+    background-color: green;
+}
+
+.closed {
+    background-color: rgb(236, 89, 89);
+}
+.message-container {
+    position: fixed; /* Or 'absolute' if you prefer */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 80%; /* Adjust based on your preference */
+    z-index: 1000; /* Ensures it appears above other content */
+}
+
+.message { 
+    padding: 10px; 
+    margin-bottom: 10px;
+    display: inline-block; /* Makes the div respect the text's width */
+}
+
+.success { 
+    background-color: #d4edda; 
+    color: #155724; 
+}
+
+.error { 
+    background-color: #f8d7da; 
+    color: #721c24; 
+}

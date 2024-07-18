@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <link rel="stylesheet" href="/b3-production/css/style.css">
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const socket = io(); // Ensure this matches your setup for initializing a WebSocket connection
+        
+            socket.on('issue', function(issue) {
+                const issuesContainer = document.getElementById('issuesContainer');
+                // Attempt to find an existing issue element by its unique ID
+                const existingIssue = issuesContainer.querySelector(`div[data-issue-id="${issue.id}"]`);
+        
+                if (existingIssue) {
+                    // Update the existing issue's content
+                    updateExistingIssue(existingIssue, issue);
+                } else {
+                    // Create and append a new issue element
+                    createAndAppendNewIssue(issue, issuesContainer);
+                }
+            });
+        });
+        
+        function updateExistingIssue(element, issue) {
+            // Assuming these classes are correct and exist in your CSS
+            element.querySelector('.issue-title').textContent = issue.title;
+            element.querySelector('.issue-description').textContent = issue.description;
+            element.querySelector('.status-indicator').className = `status-indicator ${issue.state === 'opened' ? 'open' : 'closed'}`;
+            element.querySelector('.issue-status').textContent = `Status: ${issue.state.charAt(0).toUpperCase() + issue.state.slice(1)}`;
+            element.querySelector('.issue-author').textContent = `Created by: ${issue.author.name}`;
+            element.querySelector('.updated-time').textContent = `Last updated: ${new Date(issue.updated_at).toLocaleString()}`;
+        }
+        
+        function createAndAppendNewIssue(issue, container) {
+            const issueElement = document.createElement('div');
+            issueElement.setAttribute('data-issue-id', issue.id);
+            issueElement.innerHTML = `
+                <h2 class="issue-title">${issue.title}</h2>
+                <p class="issue-description">${issue.description}</p>
+                <div>
+                    <span class="status-indicator ${issue.state === 'opened' ? 'open' : 'closed'}"></span>
+                    <span class="issue-status">Status: ${issue.state.charAt(0).toUpperCase() + issue.state.slice(1)}</span>
+                </div>
+                <p class="issue-author">Created by: ${issue.author.name}</p>
+                <p class="updated-time">Last updated: ${new Date(issue.updated_at).toLocaleString()}</p>
+            `;
+            issueElement.classList.add('issue'); // Ensure this class is defined in your CSS
+            container.prepend(issueElement); // This adds the new issue at the top of the container
+        }
+        
+        
+        </script>
+        
+</head>
+<body>
+    <header id="header">
+        <div id="nav-div">
+            <nav>
+                <ul>
+                    <li><a href="/b3-production/">Home</a></li>
+                    <li><a href="/b3-production/projects">View Issues</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+
+        <div id="issuesContainer">
+            <% if (issues && issues.length) { %>
+                <% issues.forEach(function(issue) { %>
+                    <div class="issue">
+                        <h2><%= issue.title %></h2>
+                        <p><%= issue.description %></p>
+                        <div>
+                            <span class="status-indicator <%= issue.state === 'opened' ? 'open' : 'closed' %>"></span>
+                            <span>Status: <%= issue.state.charAt(0).toUpperCase() + issue.state.slice(1) %></span>
+                        </div>
+                        <p>Created by: <span class="issue-author"><%= issue.author.name %></span></p>
+                        <p>Last updated: <span class="updated-time"><%= new Date(issue.updated_at).toLocaleString() %></span></p>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p>No issues to display.</p>
+            <% } %>
+        </div>
+    </main>
+</body>
+</html>

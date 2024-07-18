@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production Server With Real Time</title>
+    <link rel="stylesheet" href="/b3-production/css/style.css">
+
+</head>
+<body>
+
+    <header id="header">
+        <div id="nav-div">
+            <nav>
+                <ul>
+                    <li><a href="/b3-production/">Home</a></li>
+                    <li><a href="/b3-production/projects">View Issues</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <% if (typeof messages !== 'undefined' && messages) { %>
+        <div id="messages">
+            <% messages.forEach(function(message) { %>
+                <p><%= message %></p>
+            <% }); %>
+        </div>
+    <% } %>
+    
+</body>
+</html>

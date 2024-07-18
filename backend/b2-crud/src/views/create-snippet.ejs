@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Snippet Page</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="/">
+                <img src="/img/logo.png" alt="">
+            </a>
+        </div>
+        <div class="nav-links">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/snippets">Browse</a></li>
+                <% if (session.username) { %>
+                    <li><a href="">Logged in as <%=session.username %></a></li>
+                <% } else  { %>
+                    <li><a href="/user/login">Login</a></li>
+                <% } %>
+                <% if (session.username) { %>
+                    <li><a href="/user/logout">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/user/register">Register</a></li>
+                <% } %>
+            </ul>
+        </div>
+    </header>
+
+    <div class="auth-container">
+        <h1>Create new snippet</h1>
+        <% if (success && success !=undefined) { %>
+            <div class="seccess-message">
+                <%= success %>
+            </div>
+        <% } %>
+
+        <% if (fail && fail !=undefined) { %>
+            <div class="fail-message">
+                <%= fail %>
+            </div>
+        <% } %>
+
+        <form action="/snippets/create" method="post" enctype="application/x-www-form-urlencoded">
+            <div class="input-form">
+                <label for="title">Title <span>*</span></label>
+                <input type="text" name="title" placeholder="Enter your title" required id="title">
+
+                <% if (validationErrors && validationErrors.title) { %>
+                    <div class="input-error">
+                        <%= validationErrors.title %>
+                    </div>
+                <% } %>
+            </div>
+
+            <div class="input-form">
+                <label for="language">Language <span>*</span></label>
+                <input type="text" name="language" id="language" placeholder="Enter your language" required>
+            
+                <% if (validationErrors && validationErrors.language) { %>
+                    <div class="input-error">
+                        <%= validationErrors.language %>
+                    </div>
+                <% } %>
+            </div>
+
+            <div class="input-form">
+                <label for="snippet">Snippet <span>*</span></label>
+                <textarea name="snippet" id="snippet" rows="10" placeholder="Type snippet code here..." required></textarea>
+                
+                <% if (validationErrors && validationErrors.snippet) { %>
+                    <div class="input-error">
+                        <%= validationErrors.snippet %>
+                    </div>
+                <% } %>
+            </div>
+
+            <div class="input-form">
+                <label for="description">Description <span>*</span></label>
+                <input type="text" name="description" id="description" placeholder="Enter your description" required>
+            
+                <% if (validationErrors && validationErrors.description) { %>
+                    <div class="input-error">
+                        <%= validationErrors.description %>
+                    </div>
+                <% } %>
+            </div>
+
+            <div class="input-check">
+                <label for="is_private">Private: </label>
+                <input type="checkbox" name="is_private" id="is_private">
+
+                <% if (validationErrors && validationErrors.is_private) { %>
+                    <div class="input-error">
+                        <%= validationErrors.is_private %>
+                    </div>
+                <% } %>
+            </div>
+
+            <div class="input-submit">
+                <button type="submit">Create</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

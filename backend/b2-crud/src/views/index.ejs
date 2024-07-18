@@ -1,0 +1,45 @@
+<!-- views/snippets.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Snippet Application</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="/">
+                <img src="/img/logo.png" alt="Logo">
+            </a>
+        </div>
+        <div class="nav-links">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/snippets">Browse</a></li>
+                <% if(session.username) { %>
+                    <li><a href="">Logged in as <%= session.username %></a></li>
+                <% } else { %>
+                    <li><a href="/user/login">Login</a></li>
+                <% } %>  
+                <% if(session.username) { %>
+                    <li><a href="/user/logout">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/user/register">Register</a></li>
+                <% } %>              
+            </ul>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>CRUD Code Snippets</h1>
+        <p>A simple CRUD Application for code snippets. This Application is built using Node.js, Express.js, MognoDB,
+            and EJS.</p>
+        <a class="home-snippet" href="/snippets">View Snippets</a>
+    </div>
+</body>
+
+</html>
